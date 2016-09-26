@@ -21,18 +21,30 @@ package net.raumzeitfalle.fun;
 
 import java.util.function.UnaryOperator;
 
+/**
+ * Implementation of an exponentially weighted moving average as described in the NIST Handbook of Engineering Statistics. Please refer following description for more details: <a href="http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm">http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm</a>. 
+ * @author Oliver Loeffler
+ *
+ */
 public class Ewma implements UnaryOperator<Double> {
 
 	private final double lambda;
 	
 	private final double initial;
 	
-	private double previous = 0.0;
+	private double previous;
 	
 	private Ewma(final double lambda, double initial){
+		validateLambda(lambda);
 		this.lambda = lambda;
 		this.previous = initial;
 		this.initial = this.previous;
+	}
+
+	private void validateLambda(final double lambda) {
+		if (Double.isNaN(lambda) || Double.isInfinite(lambda) || lambda <= 0 || lambda > 1) {
+			throw new IllegalArgumentException("The constant lambda must be greater 0 and less than or eqal to 1.0. Given was a lambda of " + lambda +".");
+		}
 	}
 	
 	public static class EwmaBuilder { 
@@ -47,9 +59,9 @@ public class Ewma implements UnaryOperator<Double> {
 	
 	@Override
 	public Double apply(Double t) {
-		Double result = Double.valueOf( lambda * t.doubleValue() + (1-lambda)* this.previous);
-		this.previous = result.doubleValue();
-		return result;
+		double result = lambda * t.doubleValue() + (1-lambda)* this.previous;
+		this.previous = result;
+		return Double.valueOf(result);
 	}
 	
 	public double getStart() {

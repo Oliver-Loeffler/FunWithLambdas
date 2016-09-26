@@ -75,6 +75,26 @@ public class EwmaTest {
 	public void gettingStart() {
 		assertEquals(0.0,classUnderTest.getStart(), 0.001);
 	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void lambdaWithNaNValue() {
+		EwmaBuilder.withLambda(Double.NaN);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void lambdaWithInfinity() {
+		EwmaBuilder.withLambda(Double.POSITIVE_INFINITY);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void lambdaGreaterOne() {
+		EwmaBuilder.withLambda(10);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void lambdaEqualsZero() {
+		EwmaBuilder.withLambda(0);
+	}
 
 	
 }
