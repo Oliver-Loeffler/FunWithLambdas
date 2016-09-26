@@ -23,7 +23,7 @@ import java.util.function.UnaryOperator;
 
 /**
  * Implementation of an exponentially weighted moving average as described in the NIST Handbook of Engineering Statistics. Please refer following description for more details: <a href="http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm">http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm</a>. 
- * @author Oliver Loeffler
+ * @author Oliver Löffler
  *
  */
 public class Ewma implements UnaryOperator<Double> {
