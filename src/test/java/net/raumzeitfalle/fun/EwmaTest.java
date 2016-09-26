@@ -73,7 +73,7 @@ public class EwmaTest {
 	
 	@Test
 	public void gettingStart() {
-		assertEquals(0.0,classUnderTest.getStart(), 0.001);
+		assertEquals(0.0,classUnderTest.getEWMA0(), 0.001);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
