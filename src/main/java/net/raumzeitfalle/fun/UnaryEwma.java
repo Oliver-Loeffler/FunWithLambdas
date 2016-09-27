@@ -21,9 +21,12 @@ package net.raumzeitfalle.fun;
 
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
 
 /**
- * Implementation of an exponentially weighted moving average as described in the NIST Handbook of Engineering Statistics. Please refer following description for more details: <a href="http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm">http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm</a>. 
+ * Implementation of an exponentially weighted moving average as described in the NIST Handbook of Engineering Statistics.<br>
+ * The provided functions {@link UnaryOperator} are intended to be used for processing {@link Stream} of {@link Double}. 
+ * @see <a href="http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm">NIST Handbook of Engineering Statistics</a>
  * @author Oliver Löffler
  *
  */
@@ -45,7 +48,7 @@ public class UnaryEwma implements UnaryOperator<Double> {
 	}
 	
 	/**
-	 * Creates an EWMA function according to NIST Handbook of Engineering Statistics with an EWMA0 of 0.0.
+	 * Creates an EWMA function according with an EWMA0 of 0.0.
 	 * @param lambda describes the depth of memory ( 1 basically ignores the past, values close to 0 weight the past stronger than the present).
 	 * @return {@link UnaryOperator} of type {@link Double}
 	 */
@@ -54,8 +57,8 @@ public class UnaryEwma implements UnaryOperator<Double> {
 	}
 	
 	/**
-	 * Creates an EWMA function according to NIST Handbook of Engineering Statistics with a custom EWMA0 denoted by parameter initial.
-	 * @param lambda describes the depth of memory ( 1 basically ignores the past, values close to 0 weight the past stronger than the present).
+	 * Creates an EWMA function an EWMA0 denoted by given double parameter initial.
+	 * @param lambda describes the depth of memory (1 basically ignores the past, values close to 0 weights the past significantly stronger than the present).
 	 * @param initial EWMA0 value used for initialization, typical value is 0 or if known, the mean of all past values.
 	 * @return {@link UnaryOperator} of type {@link Double}
 	 */
