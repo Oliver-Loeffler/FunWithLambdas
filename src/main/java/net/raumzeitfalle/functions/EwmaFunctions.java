@@ -59,4 +59,19 @@ public class EwmaFunctions {
 			throw new IllegalArgumentException("Lambda must be greater 0 and less than or equal to 1.");
 		}
 	}
+	
+	/**
+	 * Calculates the EWMA for a time series with an ewma0=timeSerias0 (first element of time series) and given lambda.
+	 * @param lambda weight of first over second value (e.g. 0.2 gives 20% weight to the first value and 80% weight to the second value). With a weight of 0.5 the average of both values is returned by this function. 
+	 * @param timeSeries in form of a double[]
+	 * @return filtered time series in form of a double[] 
+	 */
+	public double[] applyWithLambda(double lambda, double[] timeSeries) {
+		Function<Double, Double> function = withLambdaAndInitial(lambda, timeSeries[0]);
+		double[] ewmaFiltered = new double[timeSeries.length];
+		for (int i = 0; i < ewmaFiltered.length; i++) {
+			ewmaFiltered[i] = function.apply(Double.valueOf(timeSeries[i])).doubleValue();
+		}
+		return ewmaFiltered;
+	}
 }

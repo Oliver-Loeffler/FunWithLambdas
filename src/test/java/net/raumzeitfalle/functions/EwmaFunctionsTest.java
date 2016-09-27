@@ -30,18 +30,24 @@ public class EwmaFunctionsTest {
 	
 	@Test
 	public void applyFunctionOnStream() {
-		List<Double> doubles = createLinkedListOfDoubles();
+		LinkedList<Double> doubles = createLinkedListOfDoubles();
 		List<Double> results = doubles.stream().map( EwmaFunctions.get() ).collect( Collectors.toList() );
-		
 		assertEquals( 0.0, results.get(0), 0.01);
 		assertEquals( 0.2, results.get(1), 0.01);
 		assertEquals( 0.56, results.get(2), 0.01);
 		assertEquals( 1.048, results.get(3), 0.01);
+	}
 	
+	@Test
+	public void applyToArrayOfDoublePrimitives() {
+		double[] values = new double[]{0.0,1.0,2.0,3.0};
+		double[] result = new EwmaFunctions().applyWithLambda(0.2, values);
+		double[] expect = new double[]{0.0,0.2,0.56,1.048};
+		assertArrayEquals(expect, result, 0.0001);
 	}
 
-	private List<Double> createLinkedListOfDoubles() {
-		List<Double> doubles = new LinkedList<Double>();
+	private LinkedList<Double> createLinkedListOfDoubles() {
+		LinkedList<Double> doubles = new LinkedList<Double>();
 		doubles.add( Double.valueOf(0.0) );
 		doubles.add( Double.valueOf(1.0) );
 		doubles.add( Double.valueOf(2.0) );
