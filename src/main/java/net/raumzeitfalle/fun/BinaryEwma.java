@@ -34,7 +34,7 @@ public class BinaryEwma implements BinaryOperator<Double>{
 	}
 	
 	private BinaryEwma(double lambda){
-		validateLambda(lambda);
+		throwExceptionWhenLambdaIsInvalid(lambda);
 		this.lambda = lambda;
 	}
 	
@@ -43,7 +43,7 @@ public class BinaryEwma implements BinaryOperator<Double>{
 		return lambda * t.doubleValue() + (1-lambda) * u;
 	}
 
-	private void validateLambda(final double lambda) {
+	private void throwExceptionWhenLambdaIsInvalid(final double lambda) {
 		if (Double.isNaN(lambda) || Double.isInfinite(lambda) || lambda <= 0 || lambda > 1) {
 			throw new IllegalArgumentException("The constant lambda must be greater 0 and less than or eqal to 1. Given was a lambda of " + lambda +".");
 		}
