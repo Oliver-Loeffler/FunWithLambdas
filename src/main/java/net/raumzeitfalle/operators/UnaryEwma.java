@@ -17,7 +17,7 @@
  * limitations under the License.
  * 
  */
-package net.raumzeitfalle.fun;
+package net.raumzeitfalle.operators;
 
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;

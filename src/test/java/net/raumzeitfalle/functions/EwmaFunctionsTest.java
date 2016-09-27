@@ -1,4 +1,4 @@
-package net.raumzeitfalle.fun;
+package net.raumzeitfalle.functions;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
+
+import net.raumzeitfalle.functions.EwmaFunctions;
 
 public class EwmaFunctionsTest {
 

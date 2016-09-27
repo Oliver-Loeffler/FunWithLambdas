@@ -18,7 +18,7 @@
  * 
  */
 
-package net.raumzeitfalle.fun;
+package net.raumzeitfalle.operators;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

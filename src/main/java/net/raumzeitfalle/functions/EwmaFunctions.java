@@ -1,4 +1,4 @@
-package net.raumzeitfalle.fun;
+package net.raumzeitfalle.functions;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
