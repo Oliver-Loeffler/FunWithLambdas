@@ -20,7 +20,8 @@
 
 package net.raumzeitfalle.fun;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,50 +31,50 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 public class UnaryEwmaTest {
-	
-	UnaryEwma functionUnderTest = (UnaryEwma) UnaryEwma.withLambda(0.2);
-	
-	private static final double TOLERANCE = 0.0001;
-	
-	@Test
-	public void apply() {
-		UnaryOperator<Double> ewma = UnaryEwma.buildWith(0.2, 0.0);
-		
-		Double result = ewma.apply(Double.valueOf(1.0));
-		assertEquals(0.2, result.doubleValue(), TOLERANCE);
-		
-		result = ewma.apply(Double.valueOf(2.0));
-		assertEquals(0.56, result.doubleValue(), TOLERANCE);
-		
-		result = ewma.apply(Double.valueOf(3.0));
-		assertEquals(1.048, result.doubleValue(), TOLERANCE);
-	}
-	
-	@Test
-	public void useCaseWithDoubleStreams(){
-		List<Double> values = new LinkedList<Double>();
-		values.add(Double.valueOf(1.0));
-		values.add(Double.valueOf(2.0));
-		values.add(Double.valueOf(3.0));
-		
-		List<Double> ewma = values.stream().map( UnaryEwma.withLambda(0.2) ).collect(Collectors.toList());
-		assertEquals( 1.048, ewma.get(2), TOLERANCE);
-	}
-	
-	@Test
-	public void toStringMethod() {
-		assertTrue(functionUnderTest.toString().contains("EWMA"));
-	}
-	
-	@Test
-	public void gettingLambda() {
-		assertEquals(0.2,functionUnderTest.getLambda(), TOLERANCE);
-	}
-	
-	@Test
-	public void gettingStart() {
-		assertEquals(0.0,functionUnderTest.getEWMA0(), TOLERANCE);
-	}
 
-	
+    UnaryEwma functionUnderTest = (UnaryEwma) UnaryEwma.withLambda(0.2);
+
+    private static final double TOLERANCE = 0.0001;
+
+    @Test
+    public void apply() {
+	UnaryOperator<Double> ewma = UnaryEwma.buildWith(0.2, 0.0);
+
+	Double result = ewma.apply(Double.valueOf(1.0));
+	assertEquals(0.2, result.doubleValue(), TOLERANCE);
+
+	result = ewma.apply(Double.valueOf(2.0));
+	assertEquals(0.56, result.doubleValue(), TOLERANCE);
+
+	result = ewma.apply(Double.valueOf(3.0));
+	assertEquals(1.048, result.doubleValue(), TOLERANCE);
+    }
+
+    @Test
+    public void useCaseWithDoubleStreams(){
+	List<Double> values = new LinkedList<Double>();
+	values.add(Double.valueOf(1.0));
+	values.add(Double.valueOf(2.0));
+	values.add(Double.valueOf(3.0));
+
+	List<Double> ewma = values.stream().map( UnaryEwma.withLambda(0.2) ).collect(Collectors.toList());
+	assertEquals( 1.048, ewma.get(2).doubleValue(), TOLERANCE);
+    }
+
+    @Test
+    public void toStringMethod() {
+	assertTrue(functionUnderTest.toString().contains("EWMA"));
+    }
+
+    @Test
+    public void gettingLambda() {
+	assertEquals(0.2,functionUnderTest.getLambda(), TOLERANCE);
+    }
+
+    @Test
+    public void gettingStart() {
+	assertEquals(0.0,functionUnderTest.getEWMA0(), TOLERANCE);
+    }
+
+
 }
