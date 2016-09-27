@@ -33,18 +33,20 @@ public class UnaryEwmaTest {
 	
 	UnaryEwma functionUnderTest = (UnaryEwma) UnaryEwma.withLambda(0.2);
 	
+	private static final double TOLERANCE = 0.0001;
+	
 	@Test
-	public void test() {
+	public void apply() {
 		UnaryOperator<Double> ewma = UnaryEwma.buildWith(0.2, 0.0);
 		
 		Double result = ewma.apply(Double.valueOf(1.0));
-		assertEquals(0.2, result.doubleValue(), 0.01);
+		assertEquals(0.2, result.doubleValue(), TOLERANCE);
 		
 		result = ewma.apply(Double.valueOf(2.0));
-		assertEquals(0.56, result.doubleValue(), 0.01);
+		assertEquals(0.56, result.doubleValue(), TOLERANCE);
 		
 		result = ewma.apply(Double.valueOf(3.0));
-		assertEquals(1.048, result.doubleValue(), 0.01);
+		assertEquals(1.048, result.doubleValue(), TOLERANCE);
 	}
 	
 	@Test
@@ -55,7 +57,7 @@ public class UnaryEwmaTest {
 		values.add(Double.valueOf(3.0));
 		
 		List<Double> ewma = values.stream().map( UnaryEwma.withLambda(0.2) ).collect(Collectors.toList());
-		assertEquals( 1.048, ewma.get(2), 0.0001);
+		assertEquals( 1.048, ewma.get(2), TOLERANCE);
 	}
 	
 	@Test
@@ -65,12 +67,12 @@ public class UnaryEwmaTest {
 	
 	@Test
 	public void gettingLambda() {
-		assertEquals(0.2,functionUnderTest.getLambda(), 0.001);
+		assertEquals(0.2,functionUnderTest.getLambda(), TOLERANCE);
 	}
 	
 	@Test
 	public void gettingStart() {
-		assertEquals(0.0,functionUnderTest.getEWMA0(), 0.001);
+		assertEquals(0.0,functionUnderTest.getEWMA0(), TOLERANCE);
 	}
 
 	

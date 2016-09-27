@@ -28,13 +28,14 @@ import org.junit.Test;
 public class BinaryEwmaTest {
 	
 	BinaryOperator<Double> functionUnderTest = BinaryEwma.get();
+	
+	private static final double TOLERANCE = 0.0001;
 
 	@Test
-	public void test() {
-		
-		assertEquals(0.2, functionUnderTest.apply( Double.valueOf(1.0), Double.valueOf(0.0)), 0.001);	
-		assertEquals(0.56, functionUnderTest.apply( Double.valueOf(2.0), Double.valueOf(0.2)), 0.001);
-		
+	public void apply() {
+		assertEquals(0.2, functionUnderTest.apply( Double.valueOf(1.0), Double.valueOf(0.0)), TOLERANCE);	
+		assertEquals(0.56, functionUnderTest.apply( Double.valueOf(2.0), Double.valueOf(0.2)), TOLERANCE);
+		assertEquals(1.048, functionUnderTest.apply( Double.valueOf(3.0), Double.valueOf(0.56)), TOLERANCE);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
