@@ -20,7 +20,7 @@ public class EwmaFunctions {
 	 */
 	public static BiFunction<Double, Double, Double> getStatelessBiFunction(final double lambda) {
 		throwExceptionAtInvalidLambda(lambda);
-		return (a,b) -> lambda * a + (1-lambda) * b;
+		return (a,b) -> Double.valueOf(lambda * a.doubleValue() + (1-lambda) * b.doubleValue());
 	}
 	
 	/**

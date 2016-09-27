@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import net.raumzeitfalle.functions.EwmaFunctions;
 
+@SuppressWarnings("boxing")
 public class EwmaFunctionsTest {
 
 	@Test
@@ -47,7 +48,7 @@ public class EwmaFunctionsTest {
 	}
 
 	private LinkedList<Double> createLinkedListOfDoubles() {
-		LinkedList<Double> doubles = new LinkedList<Double>();
+		LinkedList<Double> doubles = new LinkedList<>();
 		doubles.add( Double.valueOf(0.0) );
 		doubles.add( Double.valueOf(1.0) );
 		doubles.add( Double.valueOf(2.0) );
