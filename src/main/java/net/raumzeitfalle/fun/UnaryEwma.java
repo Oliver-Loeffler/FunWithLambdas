@@ -19,6 +19,7 @@
  */
 package net.raumzeitfalle.fun;
 
+import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
 /**
@@ -26,7 +27,7 @@ import java.util.function.UnaryOperator;
  * @author Oliver Löffler
  *
  */
-public class Ewma implements UnaryOperator<Double> {
+public class UnaryEwma implements UnaryOperator<Double> {
 
 	private final double lambda;
 	
@@ -34,43 +35,37 @@ public class Ewma implements UnaryOperator<Double> {
 	
 	private double previous;
 	
-	private Ewma(final double lambda, double initial){
-		validateLambda(lambda);
+	private final BinaryOperator<Double> function;
+	
+	private UnaryEwma(final double lambda, double initial){
 		this.lambda = lambda;
 		this.previous = initial;
 		this.initial = this.previous;
-	}
-
-	private void validateLambda(final double lambda) {
-		if (Double.isNaN(lambda) || Double.isInfinite(lambda) || lambda <= 0 || lambda > 1) {
-			throw new IllegalArgumentException("The constant lambda must be greater 0 and less than or eqal to 1.0. Given was a lambda of " + lambda +".");
-		}
+		this.function = BinaryEwma.withLambda(lambda);
 	}
 	
-	public static class EwmaBuilder { 
-		/**
-		 * Creates an EWMA function according to NIST Handbook of Engineering Statistics
-		 * @param lambda describes the depth of memory ( 1 basically ignores the past, values close to 0 weight the past stronger than the present).
-		 * @return {@link UnaryOperator} of type {@link Double}
-		 */
-		public static UnaryOperator<Double> withLambda(double lambda){
-			return new Ewma(lambda, 0.0);
-		}
-		
-		/**
-		 * Creates an EWMA function according to NIST Handbook of Engineering Statistics
-		 * @param lambda describes the depth of memory ( 1 basically ignores the past, values close to 0 weight the past stronger than the present).
-		 * @param initial EWMA0 value used for initialization, typical value is 0 or if known, the mean of all past values.
-		 * @return {@link UnaryOperator} of type {@link Double}
-		 */
-		public UnaryOperator<Double> buildWith(double lambda, double initial){
-			return new Ewma(lambda, initial);
-		}
+	/**
+	 * Creates an EWMA function according to NIST Handbook of Engineering Statistics with an EWMA0 of 0.0.
+	 * @param lambda describes the depth of memory ( 1 basically ignores the past, values close to 0 weight the past stronger than the present).
+	 * @return {@link UnaryOperator} of type {@link Double}
+	 */
+	public static UnaryOperator<Double> withLambda(double lambda){
+		return new UnaryEwma(lambda, 0.0);
+	}
+	
+	/**
+	 * Creates an EWMA function according to NIST Handbook of Engineering Statistics with a custom EWMA0 denoted by parameter initial.
+	 * @param lambda describes the depth of memory ( 1 basically ignores the past, values close to 0 weight the past stronger than the present).
+	 * @param initial EWMA0 value used for initialization, typical value is 0 or if known, the mean of all past values.
+	 * @return {@link UnaryOperator} of type {@link Double}
+	 */
+	public static UnaryOperator<Double> buildWith(double lambda, double initial){
+		return new UnaryEwma(lambda, initial);
 	}
 	
 	@Override
-	public Double apply(Double t) {
-		this.previous = lambda * t.doubleValue() + (1-lambda) * this.previous;
+	public Double apply(Double current) {
+		this.previous = function.apply(current, this.previous);
 		return Double.valueOf(this.previous);
 	}
 	
@@ -81,6 +76,9 @@ public class Ewma implements UnaryOperator<Double> {
 		return this.initial;
 	}
 	
+	/**
+	 * @return The lambda denotes how strong the past value (n-1) is weighted compared to the preset value (n). A lambda of 1 gives all the weight to (n) whereas a lambda of 0.2 gives only 20% of the weight to (n) but 80% to (n-1).
+	 */
 	public double getLambda() {
 		return this.lambda;
 	}

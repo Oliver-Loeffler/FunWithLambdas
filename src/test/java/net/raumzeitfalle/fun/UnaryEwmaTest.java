@@ -29,16 +29,13 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import net.raumzeitfalle.fun.Ewma.EwmaBuilder;
-
-public class EwmaTest {
+public class UnaryEwmaTest {
 	
-	Ewma classUnderTest = (Ewma) EwmaBuilder.withLambda(0.2);
+	UnaryEwma functionUnderTest = (UnaryEwma) UnaryEwma.withLambda(0.2);
 	
 	@Test
 	public void test() {
-		EwmaBuilder builder = new EwmaBuilder();
-		UnaryOperator<Double> ewma = builder.buildWith(0.2, 0.0);
+		UnaryOperator<Double> ewma = UnaryEwma.buildWith(0.2, 0.0);
 		
 		Double result = ewma.apply(Double.valueOf(1.0));
 		assertEquals(0.2, result.doubleValue(), 0.01);
@@ -57,43 +54,23 @@ public class EwmaTest {
 		values.add(Double.valueOf(2.0));
 		values.add(Double.valueOf(3.0));
 		
-		List<Double> ewma = values.stream().map( EwmaBuilder.withLambda(0.2) ).collect(Collectors.toList());
+		List<Double> ewma = values.stream().map( UnaryEwma.withLambda(0.2) ).collect(Collectors.toList());
 		assertEquals( 1.048, ewma.get(2), 0.0001);
 	}
 	
 	@Test
 	public void toStringMethod() {
-		assertTrue(classUnderTest.toString().contains("EWMA"));
+		assertTrue(functionUnderTest.toString().contains("EWMA"));
 	}
 	
 	@Test
 	public void gettingLambda() {
-		assertEquals(0.2,classUnderTest.getLambda(), 0.001);
+		assertEquals(0.2,functionUnderTest.getLambda(), 0.001);
 	}
 	
 	@Test
 	public void gettingStart() {
-		assertEquals(0.0,classUnderTest.getEWMA0(), 0.001);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void lambdaWithNaNValue() {
-		EwmaBuilder.withLambda(Double.NaN);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void lambdaWithInfinity() {
-		EwmaBuilder.withLambda(Double.POSITIVE_INFINITY);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void lambdaGreaterOne() {
-		EwmaBuilder.withLambda(10);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void lambdaEqualsZero() {
-		EwmaBuilder.withLambda(0);
+		assertEquals(0.0,functionUnderTest.getEWMA0(), 0.001);
 	}
 
 	
