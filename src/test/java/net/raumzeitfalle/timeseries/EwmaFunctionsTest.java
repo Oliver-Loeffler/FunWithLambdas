@@ -1,4 +1,4 @@
-package net.raumzeitfalle.functions;
+package net.raumzeitfalle.timeseries;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import net.raumzeitfalle.functions.EwmaFunctions;
+import net.raumzeitfalle.timeseries.EwmaFunctions;
 
 @SuppressWarnings("boxing")
 public class EwmaFunctionsTest {
