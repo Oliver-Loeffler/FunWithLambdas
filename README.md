@@ -12,21 +12,31 @@ http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm
 
 Just because of interest, I ran a little benchmark test comparing a for-each loop with various parallel and sequential stream constructs using slightly different lambdas. 
 
-Benchmark Setup:
+## Benchmark Setup:
 * JVM: JavaSE8 1.8_102
 * System: MacBook Pro Mitte'2015 (2.5 Ghz Core i7, 16 GByte RAM)
 
-Code snippets:
+## Code snippets:
 * Loop (for-loop, eigentlich ein for-each)
-'''java
+```java
 int max = ints.get(0).intValue();
 	for (Integer i : ints){
 	    if (i.intValue() > max){
 		max = i.intValue();
 	    }
 	}
-'''
+```
+
 * Lambda1 (Map-Reduce, parallel, unboxing)
+```java
+	int max = ints.stream()
+		      .parallel()
+		      .reduce((a,b) -> {if (a.intValue() > b.intValue()) return a; else return b;})
+		      .get()
+		      .intValue();
+
+```
+
 * Lambda2 (Map-Reduce, parallel, auto-unboxing)
 * Lambda3 (Map-Reduce, parallel, Math.max())
 * Sequential (Map-Reduce, sequential, auto-unboxing)
