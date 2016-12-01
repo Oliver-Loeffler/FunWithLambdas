@@ -12,6 +12,8 @@ http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm
 
 Just because of interest, I ran a little benchmark test comparing a for-each loop with various parallel and sequential stream constructs using slightly different lambdas. 
 
+https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/src/main/java/net/raumzeitfalle/streams/FindLargestNumberBenchmark.java
+
 ## Benchmark Setup:
 * JVM: JavaSE8 1.8_102
 * System: MacBook Pro Mitte'2015 (2.5 Ghz Core i7, 16 GByte RAM)
@@ -61,7 +63,9 @@ int max = ints.get(0).intValue();
 		      .reduce( (a,b) -> a > b ? a : b )
 		      .get()
 		      .intValue();
-```	
+```
+
+## Benchmark Results
 
 **JVM with default settings**
 
