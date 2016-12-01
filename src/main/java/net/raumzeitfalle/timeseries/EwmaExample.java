@@ -6,7 +6,10 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class EwmaExample {
-        
+    /**
+     * Simple EWMA Example    
+     * @param args
+     */
     public static void main(String[] args){
 	System.out.println("Starting test...");
 	Random random = new Random();
