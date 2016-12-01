@@ -15,6 +15,13 @@ I am sure there are better ways of implementation as this place here is just kin
 Example code:
 https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/src/main/java/net/raumzeitfalle/timeseries/EwmaFunctions.java
 
+The default EWMA function initializes with a lambda of 0.2 and a starting value of 0.0.
+A lambda of 0.2 means, that in a time series the present has a weight of 20% whereas the history is weighted by 80%. Thi
+
+
+![Chart showing random data and EWMA smoothed data](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/EwmaWithLambda0.2.png)
+
+
 
 ## Benchmarks using Streams and Loops
 
