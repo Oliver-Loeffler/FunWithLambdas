@@ -22,7 +22,7 @@ Just because of interest, I ran a little benchmark test comparing a for-each loo
 int max = ints.get(0).intValue();
 	for (Integer i : ints){
 	    if (i.intValue() > max){
-		max = i.intValue();
+			max = i.intValue();
 	    }
 	}
 ```
@@ -31,16 +31,37 @@ int max = ints.get(0).intValue();
 ```java
 	int max = ints.stream()
 		      .parallel()
-		      .reduce((a,b) -> {if (a.intValue() > b.intValue()) return a; else return b;})
+		      .reduce( (a,b) -> {if (a.intValue() > b.intValue()) return a; else return b;} )
 		      .get()
 		      .intValue();
-
 ```
 
 * Lambda2 (Map-Reduce, parallel, auto-unboxing)
-* Lambda3 (Map-Reduce, parallel, Math.max())
+```java
+	int max = ints.stream()
+		      .parallel()
+		      .reduce( (a,b) -> a > b ? a : b )
+		      .get()
+		      .intValue(); 
+```
+
+* Lambda3 (Map-Reduce, parallel, Math.max(), auto-unboxing)
+```java
+   	int max = ints.stream()
+	   	      .parallel()
+		      .reduce( (a,b) -> Math.max(a, b) )
+		      .get()
+		      .intValue(); 
+```
+
 * Sequential (Map-Reduce, sequential, auto-unboxing)
-	
+```java
+	int max = ints.stream()
+		      .sequential()
+		      .reduce( (a,b) -> a > b ? a : b )
+		      .get()
+		      .intValue();
+```	
 
 **JVM with default settings**
 
