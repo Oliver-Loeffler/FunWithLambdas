@@ -10,7 +10,10 @@ See NIST Handbook of Engineering Statistics for details:
 http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm
 
 In environments where run-to-run control processes are used or as a tool in statistical process control (SPC) EWMA functions are often used to smooth steep changes in time series data or to separate process noise from systematic process variations.
+I am sure there are better ways of implementation as this place here is just kind of an experimentation environment.
 
+Example code:
+https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/src/main/java/net/raumzeitfalle/timeseries/EwmaFunctions.java
 
 
 ## Benchmarks using Streams and Loops
