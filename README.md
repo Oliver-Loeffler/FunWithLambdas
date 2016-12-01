@@ -19,7 +19,7 @@ https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/src/main/java/net/
 * System: MacBook Pro Mitte'2015 (2.5 Ghz Core i7, 16 GByte RAM)
 
 ## Code snippets:
-* Loop (for-loop, eigentlich ein for-each)
+* Loop (for-loop)
 ```java
 int max = ints.get(0).intValue();
 	for (Integer i : ints){
@@ -67,16 +67,16 @@ int max = ints.get(0).intValue();
 
 ## Benchmark Results
 
-**JVM with default settings**
+### JVM with default settings
 
 ![JVM with default settings started out of Eclipse](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/BenchmarkDefaultJvm.png)
 
 
-**JVM with interpreter mode (compiler disabled, -Djava.compiler=NONE)**
+### JVM with interpreter mode (compiler disabled, -Djava.compiler=NONE)
 
 ![JVM with default settings started out of Eclipse](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/BenchmarksInterpretedJvm.png)
 
 
-**JVM with inline optimizations disabled (-Xint)**
+### JVM with inline optimizations disabled (-Xint)
 
 ![JVM with default settings started out of Eclipse](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/BenchmarkNoOptsJvm.png)
