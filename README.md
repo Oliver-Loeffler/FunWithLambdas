@@ -3,11 +3,15 @@ Discovering the Java8 Stream API, Lambda features and aspects of functional prog
 
 [![Build Status](https://travis-ci.org/Oliver-Loeffler/BootstrapPrefs.svg?branch=master)](https://travis-ci.org/Oliver-Loeffler/FunWithLambdas) [![codecov](https://codecov.io/gh/Oliver-Loeffler/BootstrapPrefs/branch/master/graph/badge.svg)](https://codecov.io/gh/Oliver-Loeffler/FunWithLambdas)  
 
-## EWMA (exp weighted moving average, as a function)
+## EWMA (exponentially weighted moving average, as a function)
 As a first example of programming functions I've chosen a so called EWMA function.
 See NIST Handbook of Engineering Statistics for details:
 
 http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm
+
+In environments where run-to-run control processes are used or as a tool in statistical process control (SPC) EWMA functions are often used to smooth steep changes in time series data or to separate process noise from systematic process variations.
+
+
 
 ## Benchmarks using Streams and Loops
 
