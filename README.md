@@ -7,3 +7,11 @@ As a first example of programming functions I've chosen a so called EWMA functio
 See NIST Handbook of Engineering Statistics for details:
 
 http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm
+
+# Benchmarks using Streams and Loops
+
+Just because of interest, I ran a little benchmark test comparing a for-each loop with various parallel and sequential stream constructs using slightly different lambdas. 
+
+Following test setup:
+
+![JVM with default settings started out of Eclipse](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/BenchmarkDefaultJvm.png)
