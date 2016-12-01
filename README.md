@@ -14,4 +14,11 @@ Just because of interest, I ran a little benchmark test comparing a for-each loo
 
 Following test setup:
 
+**JVM with default settings**
 ![JVM with default settings started out of Eclipse](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/BenchmarkDefaultJvm.png)
+
+**JVM with interpreter mode (compiler disabled, -Djava.compiler=NONE)**
+![JVM with default settings started out of Eclipse](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/BenchmarksInterpretedJvm.png)
+
+**JVM with inline optimizations disabled (-Xint)**
+![JVM with default settings started out of Eclipse](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/BenchmarkNoOptsJvm.png)
