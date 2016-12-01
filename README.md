@@ -16,10 +16,17 @@ Example code:
 https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/src/main/java/net/raumzeitfalle/timeseries/EwmaFunctions.java
 
 The default EWMA function initializes with a lambda of 0.2 and a starting value of 0.0.
-A lambda of 0.2 means, that in a time series the present has a weight of 20% whereas the history is weighted by 80%. Thi
+A lambda of 0.2 means, that in a time series the present has a weight of 20% whereas the history is weighted by 80%. This effectively dampes the response to steep changes.
 
-
+#### EWMA with Lambda of 0.2
 ![Chart showing random data and EWMA smoothed data](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/EwmaWithLambda0.2.png)
+
+#### EWMA with Lambda of 0.1
+![Chart showing random data and EWMA smoothed data](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/EwmaWithLambda0.1.png)
+
+
+#### EWMA with Lambda of 0.05
+![Chart showing random data and EWMA smoothed data](https://github.com/Oliver-Loeffler/FunWithLambdas/blob/master/pages/EwmaWithLambda0.05.png)
 
 
 
