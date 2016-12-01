@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -30,8 +31,7 @@ public class EwmaFunctionsTest {
 
     @Test
     public void applyFunctionOnStream() {
-	LinkedList<Double> doubles = createLinkedListOfDoubles();
-	List<Double> results = doubles.stream().map( EwmaFunctions.get() ).collect( Collectors.toList() );
+	List<Double> results = EwmaFunctions.applyToStream( streamOfDoubles() ).collect(Collectors.toList());
 	assertEquals( 0.0, results.get(0).doubleValue(), 0.01);
 	assertEquals( 0.2, results.get(1).doubleValue(), 0.01);
 	assertEquals( 0.56, results.get(2).doubleValue(), 0.01);
@@ -46,13 +46,17 @@ public class EwmaFunctionsTest {
 	assertArrayEquals(expect, result, 0.0001);
     }
 
-    private LinkedList<Double> createLinkedListOfDoubles() {
+    private LinkedList<Double> linkedListOfDoubles() {
 	LinkedList<Double> doubles = new LinkedList<>();
 	doubles.add( Double.valueOf(0.0) );
 	doubles.add( Double.valueOf(1.0) );
 	doubles.add( Double.valueOf(2.0) );
 	doubles.add( Double.valueOf(3.0) );
 	return doubles;
+    }
+    
+    private Stream<Double> streamOfDoubles() {
+	return linkedListOfDoubles().stream();
     }
 
     @Test(expected=IllegalArgumentException.class)

@@ -1,12 +1,15 @@
 package net.raumzeitfalle.timeseries;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Implementation of an exponentially weighted moving average (EWMA) function.
  * @see  <a href="http://www.itl.nist.gov/div898/handbook/index.htm">NIST Handbook of Engineering Statistics</a>
- * 
  * @see  <a href="http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm">EWMA Control Charts</a>
  * @author Oliver Loeffler
  *
@@ -31,7 +34,9 @@ public class EwmaFunctions {
 	}
 	
 	/**
-	 * An exponentially weighted moving average (EWMA) function supporting one parameter. The result of previous calculations (n-1) is remembered and used for EWMA calculation at (n). Consequently EWMA at (n) serves as input parameter for EWMA at (n+1).<br>
+	 * A stateful exponentially weighted moving average (EWMA) function supporting one parameter. The result of previous calculations (n-1) is remembered and used for EWMA calculation at (n). Consequently EWMA at (n) serves as input parameter for EWMA at (n+1).<br>
+	 * <br>
+	 * Do not use this function directly in a Stream.map() function, instead please use static EwmaFunctions.applyToStream() method.
 	 * <br>
 	 * The processing order of elements is of fundamental importance for this functions, thus using parallel streams and unsorted collections must be avoided as for these cases the processing order of elements is undetermined. In this case, EWMA results may be wrong.
      * @param lambda denotes how strong the past value (n-1) is weighted compared to the preset value (n). A lambda of 1 gives all the weight to (n) whereas a lambda of 0.2 gives only 20% of the weight to (n) but 80% to (n-1).
@@ -44,13 +49,15 @@ public class EwmaFunctions {
 			private final double initial = ewma0;
 			private final double weight = lambda;
 			private Double predecessor = Double.valueOf(ewma0);
+			
 			@Override
 			public Double apply(Double t) {
-				return predecessor = function.apply(t, predecessor);
+			    return predecessor = function.apply(t, predecessor);
 			}
+			
 			@Override
 			public String toString() {
-			return new StringBuilder("EWMA_n = " + weight + "n + " + (1 - weight) +"(n-1) with EWMA_0 = " + initial + " and (n-1) = " + predecessor ).toString();}
+			    return new StringBuilder("EWMA_n = " + weight + "n + " + (1 - weight) +"(n-1) with EWMA_0 = " + initial + " and (n-1) = " + predecessor ).toString();}
 		};
 	}
 
@@ -73,5 +80,24 @@ public class EwmaFunctions {
 			ewmaFiltered[i] = function.apply(Double.valueOf(timeSeries[i])).doubleValue();
 		}
 		return ewmaFiltered;
+	}
+	
+	/**
+	 * Consumes a stream but also returns a stream of Doubles but having the stateful function applied.<br><br>
+	 * As for Stream.map() it is recommended to use stateless mapping functions, EWMA should be applied to
+	 * streams of numbers using the applyToStream method.
+	 * applyToStream() ensures that the stream is considered as sequentially and collects all stream
+	 * elements into internally used array and list structures.<br><br>Here then the EWMA smoothing is applied and finally a stream of Doubles with having the EWMA applied is returned. 
+	 * @param stream of Double
+	 * @return Stream<Double>
+	 */
+	public static Stream<Double> applyToStream(Stream<Double> stream) {
+	   Double[] values = stream.sequential().collect(Collectors.toList()).toArray(new Double[0]);
+	   List<Double> result = new LinkedList<>();
+	   Function<Double, Double> function = EwmaFunctions.get();
+	   for (Double a:values){
+	       result.add(function.apply(a));
+	   }
+	   return result.stream();
 	}
 }

@@ -52,7 +52,7 @@ public class UnaryEwmaTest {
 
     @Test
     public void useCaseWithDoubleStreams(){
-	List<Double> values = new LinkedList<Double>();
+	List<Double> values = new LinkedList<>();
 	values.add(Double.valueOf(1.0));
 	values.add(Double.valueOf(2.0));
 	values.add(Double.valueOf(3.0));

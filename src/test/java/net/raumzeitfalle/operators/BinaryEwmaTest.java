@@ -25,6 +25,11 @@ import java.util.function.BinaryOperator;
 
 import org.junit.Test;
 
+/**
+ * 
+ * @author oliver
+ *
+ */
 public class BinaryEwmaTest {
 
     BinaryOperator<Double> functionUnderTest = BinaryEwma.get();
